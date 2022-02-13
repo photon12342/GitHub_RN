@@ -1,0 +1,128 @@
+import React from 'react'
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Button, Linking } from 'react-native'
+
+export const Input = (props: any) => {
+  const { label, placeholder, shortLine, secure, onChangeText, value } = props
+  return (
+    <View style={{ backgroundColor: '#fff' }}>
+      <View style={styles.row}>
+        <Text style={styles.inputLabel}>{label}</Text>
+        <TextInput
+          style={styles.input}
+          placeholder={placeholder}
+          secureTextEntry={secure}
+          // 取消大小写
+          autoCapitalize={'none'}
+          value={value}
+          onChangeText={onChangeText}
+        />
+      </View>
+      <View
+        style={{
+          height: 0.5,
+          backgroundColor: '#d0d4d4',
+          marginLeft: shortLine ? 20 : 0,
+        }}
+      ></View>
+    </View>
+  )
+}
+
+export const ConfirmButton = (props: any) => {
+  const {title, onClick} = props;
+  return (
+    <TouchableOpacity style={styles.confirmLayout} onPress={onClick}>
+      <Text style={styles.confirmTitle}>{title}</Text>
+    </TouchableOpacity>
+  )
+};
+
+export const Tips = (props: any) => {
+  const {msg, helpUrl} = props;
+  return (
+    <View style={styles.linkLayout}>
+      <Text style={styles.tips}>{msg}</Text>
+      {!!helpUrl && (<Button title="查看帮助" onPress={() => {
+        Linking.openURL(helpUrl)
+      }} />)}
+    </View>
+  )
+};
+
+export const NavBar = (props: any) => {
+  const {title, rightTitle, onRightClick} = props;
+  return (
+    <View style={styles.navBar}>
+      <View></View>
+      <View style={styles.titleLayout}>
+        <Text style={styles.title}>{title}</Text>
+      </View>
+      <TouchableOpacity onPress={onRightClick}>
+        <Text style={styles.button}>{rightTitle}</Text>
+      </TouchableOpacity>
+    </View>
+  )
+};
+
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+  },
+  inputLabel: {
+    width: 90,
+    marginLeft: 15,
+    marginTop: 18,
+    marginBottom: 18,
+    fontSize: 16,
+  },
+  input: {
+    flex: 1,
+    marginRight: 15
+  },
+  confirmLayout: {
+    backgroundColor: '#2196f3',
+    padding: 12,
+    margin: 20,
+    marginTop: 30,
+    alignItems: 'center',
+    borderRadius: 5, 
+  },
+  confirmTitle: {
+    fontSize: 20,
+    color: '#fff'
+  },
+  linkLayout: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  tips: {
+    fontSize: 14,
+     color: 'red'
+  },
+  navBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: 44,
+  },
+  titleLayout: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    left: 40,
+    right: 40,
+    top: 0,
+    bottom: 0
+  },
+  title: {
+    fontSize: 20,
+    color: '#000'
+  },
+  button: {
+    color: '#007aff',
+    paddingRight: 15,
+    fontSize: 16
+  }
+})
